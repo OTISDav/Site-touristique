@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<tête>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <title>Liste des tickets de bus</title>
+</tête>
+<corps class="background">
+
+    <style>
+         h1{
+        text-align: center;
+        }
+        .background {
+            background-image: url("https://previews.123rf.com/images/nitinut380/nitinut3801312/nitinut380131200215/24708602-l-int%C3%A9rieur-d-un-bus-avec-des-si%C3%A8ges.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+    </style>
+    <h1>Liste des tickets de bus</h1>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+          <th>NOM DU BUS</th>
+          <th>DEPART</th>
+          <th>DESTINATION</th>
+          <th>PRIX</th>
+          <th>REGION</th>
+          <th>IMAGE</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+            <ul>
+        {% for TicketBus in tickets %}
+                <li>{{ TicketBus.bus }}</li><br>
+        {% endfor %}
+            </ul>
+        </td>
+        <td>
+            {% for TicketBus in tickets %}
+                <li>{{ TicketBus.depart }}</li><br>
+            {% endfor %}
+        </td>
+
+        <td>
+            {% for TicketBus in tickets %}
+                <li>{{ TicketBus.destination }}</li><br>
+            {% endfor %}
+        </td>
+
+        <td>
+            {% for TicketBus in tickets %}
+                <li>{{ TicketBus.price }}</li><br>
+            {% endfor %}
+        </td>
+
+        <td>
+            {% for TicketBus in tickets %}
+                <li>{{ TicketBus.region }}</li><br>
+            {% endfor %}
+        </td>
+
+          <td>
+            {% for TicketBus in tickets %}
+                {% if TicketBus.image %}
+                    <li> <img src="{{ TicketBus.image.url }}" alt="image du bus"> </li><br>
+                {% endif %}
+            {% endfor %}
+        </td>
+      </tr>
+
+      <br>
+
+    </tbody>
+  </table>
+
+</corps>
+</html>

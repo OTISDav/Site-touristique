@@ -1,0 +1,142 @@
+<!-- hebergement.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <title>Hebergements</title>
+</head>
+<body>
+<style>
+    h1{
+    text-align: center;
+    color: blue;
+    }
+
+
+</style>
+    <h1>Hébergements disponibles</h1>
+
+    <!-- Affichage des hébergements --> <table class="table table-hover">
+    <thead>
+      <tr>
+          <th>NOM DE L'HEBERGEMENT</th>
+          <th>CATEGORIE</th>
+          <th>TYPE DE CHAMBRE</th>
+          <th>REGION</th>
+          <th>PRIX NUITE</th>
+          <th>IMAGE</th>
+          <th>LOCALISATION</th>
+          <th>CHOIX</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+            <ul>
+        {% for hebergement in hebergements %}
+                <li>{{ hebergement.name }}</li><br>
+        {% endfor %}
+            </ul>
+        </td>
+        <td>
+            <ul>
+        {% for hebergement in hebergements %}
+                <li>{{ hebergement.categories }}</li><br>
+        {% endfor %}
+            </ul>
+        </td>
+        <td>
+            <ul>
+        {% for hebergement in hebergements %}
+                <li>{{ hebergement.types }}</li><br>
+        {% endfor %}
+            </ul>
+        </td>
+        <td>
+            <ul>
+        {% for hebergement in hebergements %}
+                <li>{{ hebergement.region }}</li><br>
+        {% endfor %}
+            </ul>
+        </td>
+        <td>
+            <ul>
+        {% for hebergement in hebergements %}
+                <li>{{ hebergement.price_per_night }}</li><br>
+        {% endfor %}
+            </ul>
+        </td>
+        <td>
+            <ul>
+        {% for hebergement in hebergements %}
+                <li>{{ hebergement.images }}</li>
+                <li>{{ hebergement.location }}</li>
+                <br>
+        {% endfor %}
+            </ul>
+        </td>
+        <td>
+            <ul>
+        {% for hebergement in hebergements %}
+                <li>{{ hebergement.location }}</li><br>
+        {% endfor %}
+            </ul>
+        </td>
+        <td>
+            <ul>
+        {% for hebergement in hebergements %}
+                <li>
+                    <button onclick="selectAccommodation('{{ hebergement.name }}', '{{ hebergement.price_per_night }}')">Sélectionner</button>
+                </li><br>
+        {% endfor %}
+            </ul>
+        </td>
+
+
+
+
+
+
+
+
+    <!-- Formulaire pour la durée du séjour -->
+    <form id="stay-form">
+        <label for="duration">Durée du séjour (en nuits) :</label>
+        <input type="number" id="duration" name="duration" required>
+        <button type="submit">Calculer le prix total</button>
+    </form>
+    <div id="selected-accommodation"></div>
+    <div id="total-price"></div>
+
+    <script>
+        var selectedAccommodation = null;
+
+        function selectAccommodation(name, pricePerNight) {
+            selectedAccommodation = {
+                name: name,
+                pricePerNight: pricePerNight
+            };
+            document.getElementById('selected-accommodation').innerText = 'Hébergement sélectionné : ' + name;
+            console.log('Accommodation selected:', selectedAccommodation);
+        }
+
+        document.getElementById('stay-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            if (!selectedAccommodation) {
+                alert('Veuillez sélectionner un hébergement avant de soumettre le formulaire.');
+                return;
+            }
+            var duration = document.getElementById('duration').value;
+            calculateTotalPrice(duration);
+        });
+
+        function calculateTotalPrice(duration) {
+            var pricePerNight = selectedAccommodation.pricePerNight;
+            var totalPrice = pricePerNight * duration;
+            document.getElementById('total-price').innerText = 'Prix total du séjour : ' + totalPrice.toFixed(2) + ' $';
+        }
+    </script>
+</body>
+</html>
